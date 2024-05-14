@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_tw"
+        android:icon="@drawable/ic_language_switch"
+        android:title="zh-tw -正體中文"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_cn"
+        android:icon="@drawable/ic_language_switch"
+        android:title=" zh-cn -簡體中文"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/action_en"
+        android:icon="@drawable/ic_language_switch"
+        android:title="en -英文"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/action_ja"
+        android:icon="@drawable/ic_language_switch"
+        android:title="ja -日文"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_ko"
+        android:icon="@drawable/ic_language_switch"
+        android:title="ko -韓文"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/action_es"
+        android:icon="@drawable/ic_language_switch"
+        android:title="es -西班牙文"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_id"
+        android:icon="@drawable/ic_language_switch"
+        android:title=" id -印尼文"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/action_th"
+        android:icon="@drawable/ic_language_switch"
+        android:title="th -泰文"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_vi"
+        android:icon="@drawable/ic_language_switch"
+        android:title="vi -越南文"
+        app:showAsAction="never" />
+
+
+</menu>
