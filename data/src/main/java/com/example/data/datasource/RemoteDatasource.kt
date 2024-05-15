@@ -1,5 +1,6 @@
 package com.example.data.datasource
 
+import android.util.Log
 import com.example.data.ApiResult
 import com.example.data.AttractionApi
 import com.example.data.dto.AttractionRepone
@@ -11,6 +12,7 @@ class RemoteDatasource @Inject constructor(
     val api: AttractionApi, val mapper: DtoMapper<AttractionRepone, Attraction>
 ) {
     suspend fun getAttractions(lang: String, page: Int): ApiResult<Attraction> {
+
         return try {
             val ret = api.getAll(lang, page)
             if (ret.isSuccessful) {

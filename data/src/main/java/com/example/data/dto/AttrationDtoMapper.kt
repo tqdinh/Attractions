@@ -15,7 +15,15 @@ class AttrationDtoMapper : DtoMapper<AttractionRepone, Attraction> {
             }
             if ("" == avatar)
                 Log.d("IMAGE_AVATAR", it.images.size.toString())
-            AttractionPlace(it.id, it.name, it.introduction, it.url, avatar)
+            AttractionPlace(
+                it.id,
+                it.name,
+                it.introduction,
+                it.official_site,
+                avatar,
+                it.address,
+                it.modified
+            )
         }.toMutableList()
         return Attraction(dto.total, list_place)
 

@@ -50,7 +50,7 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true);
+        viewModel.getListAttraction("en", 1)
 
     }
 
@@ -58,7 +58,6 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-
 
         val toolbar: Toolbar = binding.toolbar
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
@@ -74,7 +73,6 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-
         inflater!!.inflate(com.example.attractions.R.menu.menu_main, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -155,7 +153,7 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         setupView()
         setupObservation()
-        viewModel.getListAttraction("en", 1)
+
     }
 
     override fun onItemClick(item: AttractionPlace) {

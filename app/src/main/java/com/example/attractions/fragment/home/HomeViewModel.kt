@@ -1,5 +1,6 @@
 package com.example.attractions.fragment.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,7 +24,7 @@ class HomeViewModel @Inject constructor(val attractionRepository: AttractionRepo
 
     fun getListAttraction(lang: String, page: Int) {
         viewModelScope.launch {
-
+            Log.d("GETMORE","getList")
             attractionRepository.getListAttraction(lang, page)
         }
 

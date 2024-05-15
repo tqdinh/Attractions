@@ -1,8 +1,6 @@
 package com.example.data.dto
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
 
 data class AttractionRepone(
@@ -22,8 +20,14 @@ data class AttractionDTO(
     val name: String,
     @SerializedName("introduction")
     val introduction: String,
-    @SerializedName("url")
-    val url: String,
+    @SerializedName("official_site")
+    val official_site: String,
+    @SerializedName("address")
+    val address: String,
+    @SerializedName("modified")
+    val modified: String,
+
+
 
     @SerializedName("images")
     val images: List<ImageDTO>,

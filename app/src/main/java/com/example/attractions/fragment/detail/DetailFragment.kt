@@ -31,7 +31,6 @@ class DetailFragment : Fragment() {
     }
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -55,10 +54,7 @@ class DetailFragment : Fragment() {
                 findNavController().navigateUp()
             }
         })
-
-
         val actionBar: ActionBar? = (activity as AppCompatActivity?)!!.supportActionBar
-
         actionBar?.apply {
             this.setDisplayHomeAsUpEnabled(true)
             this.setTitle(attractionPlace.name)
@@ -68,7 +64,6 @@ class DetailFragment : Fragment() {
             requireActivity(),
             onBackPressedCallback
         );
-
 
         return binding.root
 
@@ -100,7 +95,8 @@ class DetailFragment : Fragment() {
     fun setupListener() {
         binding.tvHyperlink.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                val action = DetailFragmentDirections.actDetailWebview(attractionPlace.official_site)
+                val action =
+                    DetailFragmentDirections.actDetailWebview(attractionPlace.official_site)
                 findNavController().navigate(action)
             }
 

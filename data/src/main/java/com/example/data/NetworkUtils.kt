@@ -38,7 +38,8 @@ object NetworkUtils {
 
         retryOnConnectionFailure(false)
     }.build()
-    val BASE_URL = "https://www.travel.taipei/open-api/"
+    val BASE_URL = BuildConfig.BASE_URL
+
     val GSON = GsonBuilder().setLenient().create()
 
     fun getRetrofit(): Retrofit {
