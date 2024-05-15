@@ -3,6 +3,7 @@ package com.example.attractions.adapter
 import android.content.Context
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
@@ -38,7 +39,7 @@ class AttractionAdapter(
 }) {
 
     interface OnItemClickListener {
-        fun onItemClick(item: Attraction)
+        fun onItemClick(item: AttractionPlace)
 
     }
 
@@ -46,17 +47,6 @@ class AttractionAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val binding =
             CustomAttractionViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
-
-//        val windowManager = parent.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-//        val displayMetrics = DisplayMetrics()
-//        windowManager.defaultDisplay.getMetrics(displayMetrics)
-//        val widthPixels = displayMetrics.widthPixels
-//
-//
-//        val layoutParams = ViewGroup.LayoutParams(widthPixels, (widthPixels * 0.8).toInt())
-//        binding.root.layoutParams = layoutParams
-
         return ActiveEventViewHolder(binding, parent.context)
     }
 
@@ -84,12 +74,18 @@ class AttractionAdapter(
     }
 
     open class EventViewHolder(
-
         val binding: CustomAttractionViewBinding,
         private val onItemClickListener: OnItemClickListener,
     ) : RecyclerView.ViewHolder(binding.root) {
 
+
         open fun bind(item: AttractionPlace, position: Int) {
+            binding.root.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(v: View?) {
+                    onItemClickListener.onItemClick(item)
+                }
+
+            })
             binding.placeName.text = item.name
             binding.placeIntro.text = item.introduction
             bindPhoto(item.avatar, binding.ivAvatar)
@@ -100,8 +96,7 @@ class AttractionAdapter(
             Glide.with(itemView.context)
                 .load(url)
                 .placeholder(R.drawable.img_placeholder)
-//                .apply(RequestOptions().centerCrop())
-                .transition(DrawableTransitionOptions.withCrossFade())
+                .centerCrop()
                 .into(imageView)
         }
     }

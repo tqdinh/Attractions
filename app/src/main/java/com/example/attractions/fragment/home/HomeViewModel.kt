@@ -30,9 +30,14 @@ class HomeViewModel @Inject constructor(val attractionRepository: AttractionRepo
     }
 
     fun getMoreAttraction() {
-
         viewModelScope.launch {
             attractionRepository.getMoreAttraction()
+        }
+    }
+
+    fun setLanguage(lang: String) {
+        viewModelScope.launch {
+            attractionRepository.setLanguage(lang)
         }
     }
 

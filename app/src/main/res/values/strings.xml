@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Attractions</string>
+    <string name="home_title">TaipeiTour</string>
+    <string name="address">Address</string>
+    <string name="last_updated_time">Last Updated Time</string>
 </resources>

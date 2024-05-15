@@ -1,0 +1,6 @@
+<resources xmlns:ns1="http://schemas.android.com/apk/res-auto">
+    <string name="app_name">Attractions</string>
+    <string name="home_title">타이베이 투어</string>
+    <string name="address">주소</string>
+    <string name="last_updated_time">마지막 업데이트 시간</string>
+</resources>

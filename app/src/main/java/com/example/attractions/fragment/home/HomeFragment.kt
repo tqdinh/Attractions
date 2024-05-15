@@ -1,6 +1,9 @@
 package com.example.attractions.fragment.home
 
 
+import android.content.Context
+import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,20 +13,30 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.core.os.LocaleListCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.attractions.LanguageDefine
+import com.example.attractions.R
 import com.example.attractions.adapter.AttractionAdapter
 import com.example.attractions.databinding.FragmentHomeBinding
 import com.example.data.entity.Attraction
+import com.example.data.entity.AttractionPlace
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 
 @AndroidEntryPoint
@@ -49,42 +62,89 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
 
         val toolbar: Toolbar = binding.toolbar
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
-
-
-//
-//        // Enable the back button
-//        if ((activity as AppCompatActivity?)!!.supportActionBar != null) {
-//            (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-//            (activity as AppCompatActivity?)!!.supportActionBar!!.setTitle("Fragment Title")
-//        }
-//
-//
-        setHasOptionsMenu(true)
+        toolbar.setOverflowIcon(
+            ContextCompat.getDrawable(
+                requireContext(),
+                com.example.attractions.R.drawable.square_button_background
+            )
+        )
 
         return binding.root
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         inflater!!.inflate(com.example.attractions.R.menu.menu_main, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-//            R.id.action_settings -> {
-//                Toast.makeText(activity, "Settings clicked", Toast.LENGTH_SHORT).show()
-//                true
-//            }
-//
-//            R.id.action_about -> {
-//                Toast.makeText(activity, "About clicked", Toast.LENGTH_SHORT).show()
-//                true
-//            }
+            R.id.action_cn -> {
+                val code = LanguageDefine.ChineseSimplified.code
+
+                viewModel.setLanguage(code)
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+                true
+            }
+
+            R.id.action_es -> {
+                val code = LanguageDefine.Spanish.code
+
+                viewModel.setLanguage(code)
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+                true
+            }
+
+            R.id.action_en -> {
+                val code = LanguageDefine.English.code
+                viewModel.setLanguage(code)
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+                true
+            }
+
+            R.id.action_id -> {
+                val code = LanguageDefine.Indonesian.code
+                viewModel.setLanguage(code)
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+                true
+            }
+
+            R.id.action_ja -> {
+                val code = LanguageDefine.Japanese.code
+                viewModel.setLanguage(code)
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+                true
+            }
+
+            R.id.action_ko -> {
+                val code = LanguageDefine.Korean.code
+                viewModel.setLanguage(code)
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+                true
+            }
+
+            R.id.action_th -> {
+                val code = LanguageDefine.Thai.code
+                viewModel.setLanguage(code)
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+                true
+            }
+
+            R.id.action_tw -> {
+                val code = LanguageDefine.ChineseTraditional.code
+                viewModel.setLanguage(code)
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+                true
+            }
+
+            R.id.action_vi -> {
+                val code = LanguageDefine.Vietnamese.code
+                viewModel.setLanguage(code)
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+                true
+            }
 
             else -> super.onOptionsItemSelected(item)
         }
@@ -95,10 +155,12 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         setupView()
         setupObservation()
-        viewModel.getListAttraction("vi", 1)
+        viewModel.getListAttraction("en", 1)
     }
 
-    override fun onItemClick(item: Attraction) {
+    override fun onItemClick(item: AttractionPlace) {
+        val action = HomeFragmentDirections.actHomeDetail(item)
+        findNavController().navigate(action)
 
     }
 
@@ -111,21 +173,13 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
         }
         binding.rcvAttractions.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0) //check for scroll down
-                {
+                if (dy > 0) {
                     val visibleItemCount = linearlayout.getChildCount();
                     val totalItemCount = linearlayout.getItemCount();
                     val pastVisiblesItems = linearlayout.findFirstVisibleItemPosition();
 
                     if (false == viewModel.loading.value) {
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-
-                            Log.d("SCROOL_ITEM", "Last Item Wow !");
-
-                            viewLifecycleOwner.lifecycleScope.launch {
-                                Toast.makeText(requireContext(), "Last", Toast.LENGTH_SHORT).show()
-                            }
-
                             viewModel.getMoreAttraction()
 
                         }

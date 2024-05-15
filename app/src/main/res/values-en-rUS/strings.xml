@@ -1,0 +1,5 @@
+<resources xmlns:ns1="http://schemas.android.com/apk/res-auto">
+    <string name="app_name">Attractions</string>
+    <string name="home_title">Taipei Tour</string>
+    <string name="address">Address</string>
+</resources>
