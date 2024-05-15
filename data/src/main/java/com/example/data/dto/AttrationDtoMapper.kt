@@ -1,6 +1,5 @@
 package com.example.data.dto
 
-import android.util.Log
 import com.example.data.entity.Attraction
 import com.example.data.entity.AttractionPlace
 
@@ -13,8 +12,6 @@ class AttrationDtoMapper : DtoMapper<AttractionRepone, Attraction> {
                     avatar = this.src
                 }
             }
-            if ("" == avatar)
-                Log.d("IMAGE_AVATAR", it.images.size.toString())
             AttractionPlace(
                 it.id,
                 it.name,

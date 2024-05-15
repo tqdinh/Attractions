@@ -3,4 +3,5 @@
     <string name="home_title">Chuyến Tham Quan Đài Bắc</string>
     <string name="address">Địa chỉ</string>
     <string name="last_updated_time">Thời Gian Cập Nhật Cuối</string>
+    <string name="not_found">Không tìm thấy</string>
 </resources>

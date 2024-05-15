@@ -1,9 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Attractions" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@android:color/holo_blue_dark</item>
     </style>
 
-    <style name="Theme.Attractions" parent="Base.Theme.Attractions" />
+    <style name="Theme.Attractions" parent="Base.Theme.Attractions" >
+
+    </style>
 </resources>

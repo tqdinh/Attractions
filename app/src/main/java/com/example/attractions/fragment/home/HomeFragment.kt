@@ -1,11 +1,8 @@
 package com.example.attractions.fragment.home
 
 
-import android.content.Context
-import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -13,13 +10,11 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -50,7 +45,9 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getListAttraction("en", 1)
+        setHasOptionsMenu(true);
+        val currentLocale = Locale.getDefault().toString()
+        viewModel.getListAttraction(currentLocale, 1)
 
     }
 
@@ -59,12 +56,13 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+
         val toolbar: Toolbar = binding.toolbar
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
         toolbar.setOverflowIcon(
             ContextCompat.getDrawable(
                 requireContext(),
-                com.example.attractions.R.drawable.square_button_background
+                R.drawable.square_button_background
             )
         )
 
@@ -73,7 +71,8 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater!!.inflate(com.example.attractions.R.menu.menu_main, menu)
+
+        inflater!!.inflate(R.menu.menu_main, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -199,12 +198,22 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
                 }
 
             })
+
+
         }
 
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             viewModel.listAttraction.observe(viewLifecycleOwner,
                 object : Observer<Attraction> {
                     override fun onChanged(value: Attraction) {
+
+                        if (0 == value.data.size) {
+                            binding.llPlaceHolder.visibility = View.VISIBLE
+                            binding.rcvAttractions.visibility = View.GONE
+                        } else {
+                            binding.llPlaceHolder.visibility = View.GONE
+                            binding.rcvAttractions.visibility = View.VISIBLE
+                        }
 
                         attractionAdapter.submitList(value.data)
                         attractionAdapter.notifyDataSetChanged()

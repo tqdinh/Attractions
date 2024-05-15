@@ -3,4 +3,5 @@
     <string name="home_title">台北ツアー</string>
     <string name="address">住所</string>
     <string name="last_updated_time">最終更新時間</string>
+    <string name="not_found">見つかりません</string>
 </resources>

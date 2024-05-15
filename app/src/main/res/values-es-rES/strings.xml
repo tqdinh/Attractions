@@ -3,5 +3,5 @@
     <string name="home_title">Tour de Taipéi</string>
     <string name="address">Dirección</string>
     <string name="last_updated_time">Hora de la Última Actualización</string>
-
+    <string name="not_found">No encontrado</string>
 </resources>

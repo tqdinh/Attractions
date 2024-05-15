@@ -3,4 +3,5 @@
     <string name="home_title">Tur Taipei</string>
     <string name="address">Alamat</string>
     <string name="last_updated_time">Waktu Pembaruan Terakhir</string>
+    <string name="not_found">Tidak ditemukan</string>
 </resources>

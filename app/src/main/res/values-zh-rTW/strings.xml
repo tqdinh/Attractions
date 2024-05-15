@@ -3,4 +3,5 @@
     <string name="home_title">台北遊</string>
     <string name="address">地址</string>
     <string name="last_updated_time">最後更新時間</string>
+    <string name="not_found">找不到</string>
 </resources>

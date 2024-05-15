@@ -1,6 +1,6 @@
 package com.example.data.repository
 
-import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.data.ApiResult
@@ -27,6 +27,10 @@ class AttractionRepositoryImpl @Inject constructor(val remote: RemoteDatasource)
     private val _loading: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
     val loading: LiveData<Boolean> = _loading
 
+    private val _error: MutableLiveData<String> = MutableLiveData<String>("")
+    val error: LiveData<String> = _error
+
+
     private var currentPage = 0
     private var currentLang = "vi"
     override suspend fun getListAttraction(lang: String, page: Int) {
@@ -44,14 +48,16 @@ class AttractionRepositoryImpl @Inject constructor(val remote: RemoteDatasource)
                 tmp.data.addAll(ret.data.data)
             }
             _attraction.value = tmp
+        } else {
+
+            _error.value = (ret as ApiResult.Error<String>).data
         }
+
         _loading.value = false
 
     }
 
     override suspend fun getMoreAttraction() {
-        Log.d("GETMORE", "more...........")
-
         _attraction.value?.apply {
             if (this.total > this.data.size) {
                 getListAttraction(currentLang, currentPage + 1)
@@ -60,10 +66,9 @@ class AttractionRepositoryImpl @Inject constructor(val remote: RemoteDatasource)
     }
 
     override suspend fun setLanguage(lang: String) {
-        Log.d("GETMORE", "setlang")
         currentLang = lang
         currentPage = 1
-        _attraction.value = Attraction(1, mutableListOf())
+        _attraction.value = Attraction(0, mutableListOf())
         getListAttraction(currentLang, currentPage)
     }
 

@@ -33,7 +33,6 @@ class WebviewFragment : Fragment() {
         webView.webViewClient = WebViewClient()
         webView.settings.javaScriptEnabled = true
 
-
         webView.loadUrl(webUrl)
         return binding.root
     }

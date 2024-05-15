@@ -3,4 +3,5 @@
     <string name="home_title">ทัวร์ไทเป</string>
     <string name="address">ที่อยู่</string>
     <string name="last_updated_time">เวลาการอัปเดตล่าสุด</string>
+    <string name="not_found">ไม่พบ</string>
 </resources>

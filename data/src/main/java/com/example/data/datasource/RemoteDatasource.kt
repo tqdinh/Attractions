@@ -1,6 +1,5 @@
 package com.example.data.datasource
 
-import android.util.Log
 import com.example.data.ApiResult
 import com.example.data.AttractionApi
 import com.example.data.dto.AttractionRepone
@@ -19,13 +18,12 @@ class RemoteDatasource @Inject constructor(
                 val bodyDTO = ret.body()
                 if (null != bodyDTO) {
                     val domain = mapper.toDomain(bodyDTO)
-                    return ApiResult.Success<Attraction>(domain)
-                }
-                else {
-                    return ApiResult.Error("Success with empty data")
+                    return ApiResult.Success(domain)
+                } else {
+                    return ApiResult.Error("Empty body")
                 }
             } else {
-                val error = ret.errorBody().toString()
+                val error = ret.errorBody()?.byteStream().toString()
                 return ApiResult.Error(error)
             }
         } catch (e: Exception) {

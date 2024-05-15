@@ -2,4 +2,5 @@
     <string name="app_name">Attractions</string>
     <string name="home_title">Taipei Tour</string>
     <string name="address">Address</string>
+    <string name="not_found">Not found</string>
 </resources>
