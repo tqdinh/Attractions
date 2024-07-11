@@ -51,6 +51,14 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+
+
+    testImplementation ("junit:junit:4.13.2")
+    testImplementation ("org.mockito:mockito-core:3.11.2")
+    testImplementation ("org.mockito:mockito-inline:3.11.2")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:5.0.0")
+
     implementation(libs.retrofit2)
     implementation(libs.okhttp3)
     implementation(libs.gsonConverter)

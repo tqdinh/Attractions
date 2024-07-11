@@ -2,7 +2,6 @@ package com.example.attractions.fragment.home
 
 
 import android.os.Bundle
-
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -29,9 +28,7 @@ import com.example.attractions.databinding.FragmentHomeBinding
 import com.example.data.entity.Attraction
 import com.example.data.entity.AttractionPlace
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 
 @AndroidEntryPoint
@@ -46,8 +43,7 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true);
-        val currentLocale = Locale.getDefault().toString()
-        viewModel.getListAttraction(currentLocale, 1)
+
 
     }
 
@@ -82,7 +78,7 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
                 val code = LanguageDefine.ChineseSimplified.code
 
                 viewModel.setLanguage(code)
-                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+//                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
                 true
             }
 
@@ -90,56 +86,56 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
                 val code = LanguageDefine.Spanish.code
 
                 viewModel.setLanguage(code)
-                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+//                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
                 true
             }
 
             R.id.action_en -> {
                 val code = LanguageDefine.English.code
                 viewModel.setLanguage(code)
-                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+//                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
                 true
             }
 
             R.id.action_id -> {
                 val code = LanguageDefine.Indonesian.code
                 viewModel.setLanguage(code)
-                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+//                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
                 true
             }
 
             R.id.action_ja -> {
                 val code = LanguageDefine.Japanese.code
                 viewModel.setLanguage(code)
-                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+//                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
                 true
             }
 
             R.id.action_ko -> {
                 val code = LanguageDefine.Korean.code
                 viewModel.setLanguage(code)
-                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+//                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
                 true
             }
 
             R.id.action_th -> {
                 val code = LanguageDefine.Thai.code
                 viewModel.setLanguage(code)
-                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+//                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
                 true
             }
 
             R.id.action_tw -> {
                 val code = LanguageDefine.ChineseTraditional.code
                 viewModel.setLanguage(code)
-                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+//                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
                 true
             }
 
             R.id.action_vi -> {
                 val code = LanguageDefine.Vietnamese.code
                 viewModel.setLanguage(code)
-                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+//                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
                 true
             }
 
@@ -175,12 +171,12 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
                     val totalItemCount = linearlayout.getItemCount();
                     val pastVisiblesItems = linearlayout.findFirstVisibleItemPosition();
 
-                    if (false == viewModel.loading.value) {
-                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                            viewModel.getMoreAttraction()
-
-                        }
-                    }
+//                    if (false == viewModel.loading.va) {
+//                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+//                            viewModel.getMoreAttraction()
+//
+//                        }
+//                    }
                 }
             }
 
@@ -190,19 +186,24 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
     fun setupObservation() {
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.loading.observe(viewLifecycleOwner, object : Observer<Boolean> {
-                override fun onChanged(value: Boolean) {
-                    binding.circleLoading.visibility = View.GONE
-                    if (true == value)
-                        binding.circleLoading.visibility = View.VISIBLE
-                }
+            viewModel.error.collect({
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
 
             })
-
-
         }
 
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.loading.collect({
+                if (true == it)
+                    binding.circleLoading.visibility = View.VISIBLE
+                else
+                    binding.circleLoading.visibility = View.GONE
+            })
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+
+
             viewModel.listAttraction.observe(viewLifecycleOwner,
                 object : Observer<Attraction> {
                     override fun onChanged(value: Attraction) {
@@ -216,11 +217,12 @@ class HomeFragment : Fragment(), AttractionAdapter.OnItemClickListener {
                         }
 
                         attractionAdapter.submitList(value.data)
-                        attractionAdapter.notifyDataSetChanged()
-
                     }
                 })
 
+
         }
+
+
     }
 }

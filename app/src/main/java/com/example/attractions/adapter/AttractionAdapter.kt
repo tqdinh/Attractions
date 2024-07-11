@@ -56,7 +56,6 @@ class AttractionAdapter(
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         holder.bind(getItem(position), position)
-
     }
 
     inner class ActiveEventViewHolder(
